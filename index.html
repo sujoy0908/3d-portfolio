@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050505">
+    <title>3D Generalist | Portfolio</title>
+
+    <!-- SEO & Social Meta Tags -->
+    <meta name="description"
+        content="Portfolio of a passionate 3D Generalist specializing in Texturing, Modeling, Lighting, and Environments.">
+    <meta property="og:title" content="3D Generalist | Portfolio">
+    <meta property="og:description"
+        content="Portfolio of a passionate 3D Generalist specializing in Texturing, Modeling, Lighting, and Environments.">
+    <meta property="og:type" content="website">
+    <meta property="og:image"
+        content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&h=630&auto=format&fit=crop">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">3D.Gen</div>
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#hero" aria-label="Home" style="display: flex; align-items: center; color: var(--accent-mint);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#aboutme">About Me</a>
+            <div class="nav-actions">
+                <a href="#" class="btn secondary-btn" download>Resume <svg width="16" height="16" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="display:inline; margin-left:4px; vertical-align:-3px;">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg></a>
+                <a href="#contact" class="btn primary-btn" aria-label="Contact Me" style="padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 42px; height: 42px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <div class="hero-content fade-in">
+            <h1>Creating immersive<br><span>3D Experiences.</span></h1>
+            <p>Specializing in Texturing, Modeling, Lighting, and Environments.</p>
+            <a href="#portfolio" class="btn primary-btn">View Work</a>
+        </div>
+        <!-- Spline 3D Element -->
+        <div class="spline-container" id="spline-container">
+            <div id="spline-loader" class="spline-loader">
+                <div class="spinner"></div>
+            </div>
+            <canvas id="canvas3d"></canvas>
+            <div class="spline-watermark-hider"></div>
+        </div>
+    </header>
+
+    <!-- Showreel Section -->
+    <section id="showreel" class="showreel section">
+        <div class="section-header fade-up">
+            <h2>Showreel 2026</h2>
+            <p>A compilation of my best recent 3D works.</p>
+        </div>
+        <div class="video-container fade-up">
+            <!-- Placeholder YouTube Embed. User can replace this src with their own video later -->
+            <iframe src="https://www.youtube.com/embed/xmGiomn4FIA" title="3D Showreel" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Demo Section (from demo.tsx) -->
+    <section id="demo" class="demo-section section">
+        <div class="demo-container fade-up">
+            <div class="demo-image-wrapper">
+                <img class="demo-main-image"
+                    src="https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?q=80&w=451&h=451&auto=format&fit=crop"
+                    alt="Demo Image">
+                <div class="community-badge">
+                    <div class="avatar-group">
+                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200" alt="user">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="user">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
+                            alt="user">
+                        <div class="avatar-count">50+</div>
+                    </div>
+                    <p>Join our developer community</p>
+                </div>
+            </div>
+            <div class="demo-content">
+                <h2 class="demo-subtitle">My Workflow</h2>
+                <div class="demo-divider"></div>
+                <p>I transform initial concepts into fully realized, immersive 3D realities, focusing on both technical
+                    performance and artistic vision.</p>
+                <p>From establishing the initial blockout and sculpting high-poly details to efficient retopology and
+                    PBR texturing, every step is executed with precision.</p>
+                <p>Whether crafting game-ready assets or cinematic environments, my workflow ensures high fidelity and
+                    seamless engine integration.</p>
+                <button class="demo-btn">
+                    <span>Read more</span>
+                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12.53 6.53a.75.75 0 0 0 0-1.06L7.757.697a.75.75 0 1 0-1.06 1.06L10.939 6l-4.242 4.243a.75.75 0 0 0 1.06 1.06zM0 6v.75h12v-1.5H0z"
+                            fill="#fff" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section (from about.tsx) -->
+    <section id="about" class="about-section section">
+        <div class="section-header fade-up">
+            <h2>Core Competencies</h2>
+            <p class="about-subtitle">A blend of technical precision and artistic direction.</p>
+        </div>
+        <div class="about-grid fade-up">
+            <div class="about-blur-bg"></div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/flashEmoji.png"
+                        alt="Flash">
+                </div>
+                <h3>Optimized Topology</h3>
+                <p>Clean edge flow and efficient polycounts for seamless animation and rendering.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/colorsEmoji.png"
+                        alt="Colors">
+                </div>
+                <h3>PBR Texturing</h3>
+                <p>Highly detailed, physically based materials created in Substance Painter & Designer.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/puzzelEmoji.png"
+                        alt="Puzzle">
+                </div>
+                <h3>Game-Ready Assets</h3>
+                <p>Optimized models and textures fully prepared for Unreal Engine and Unity.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/bookEmoji.png"
+                        alt="Book">
+                </div>
+                <h3>Cinematic Lighting</h3>
+                <p>Evocative lighting setups for Look Dev, environments, and final renders.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/boxEmoji.png"
+                        alt="Box">
+                </div>
+                <h3>Stylized & Realism</h3>
+                <p>Versatile artistic capability ranging from hand-painted stylized to full photorealism.</p>
+            </div>
+
+            <div class="about-card">
+                <div class="about-icon">
+                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/aboutSection/brainEmoji.png"
+                        alt="Brain">
+                </div>
+                <h3>Efficient Workflows</h3>
+                <p>Fast turnarounds utilizing industry-standard pipelines and non-destructive modeling.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services section">
+        <div class="section-header fade-up">
+            <h2>Services</h2>
+            <p>From concept to final render.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-up">
+                <h3>Texturing & Materials</h3>
+                <p>High-quality stylized and photorealistic textures.</p>
+            </div>
+            <div class="service-card fade-up" style="transition-delay: 0.1s">
+                <h3>Game & Stylized Props</h3>
+                <p>Optimized assets ready for any game engine.</p>
+            </div>
+            <div class="service-card fade-up" style="transition-delay: 0.2s">
+                <h3>Environment & Modeling</h3>
+                <p>Building immersive worlds and detailed models.</p>
+            </div>
+            <div class="service-card fade-up" style="transition-delay: 0.3s">
+                <h3>Lighting & Look Dev</h3>
+                <p>Cinematic lighting to bring scenes to life.</p>
+            </div>
+            <div class="service-card fade-up" style="transition-delay: 0.4s">
+                <h3>Video Editing</h3>
+                <p>Professional video editing and post-production services.</p>
+            </div>
+            <div class="service-card fade-up" style="transition-delay: 0.5s">
+                <h3>Video Colorist</h3>
+                <p>Expert color grading and cinematic color correction.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio section">
+        <div class="section-header fade-up">
+            <h2>Featured Work</h2>
+        </div>
+        <div class="portfolio-grid">
+            <div class="portfolio-item fade-up">
+                <img src="assets/portfolio_1_1776868956269.png" alt="Treasure Chest">
+                <div class="overlay">
+                    <h3>Stylized Game Prop</h3>
+                </div>
+            </div>
+            <div class="portfolio-item fade-up" style="transition-delay: 0.1s">
+                <img src="assets/portfolio_2_1776868976686.png" alt="Sci-fi Corridor">
+                <div class="overlay">
+                    <h3>Photorealistic Environment</h3>
+                </div>
+            </div>
+            <div class="portfolio-item fade-up" style="transition-delay: 0.2s">
+                <img src="assets/portfolio_3_1776869001401.png" alt="Character Model">
+                <div class="overlay">
+                    <h3>Character Sculpt</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="aboutme" class="aboutme section">
+        <div class="section-header fade-up">
+            <h2>About Me</h2>
+            <p>Passionate about crafting immersive digital worlds.</p>
+        </div>
+        <div class="aboutme-container fade-up">
+            <div class="aboutme-image">
+                <img src="assets/Subrota.png" alt="Profile Image">
+            </div>
+            <div class="aboutme-text">
+                <h3>Hi, I'm a 3D Generalist</h3>
+                <p>With years of experience in the industry, I specialize in creating high-quality 3D assets, stylized
+                    environments, and photorealistic texturing. My workflow is built around industry standards using
+                    tools like Maya, Substance Painter, and Unreal Engine.</p>
+                <p>I focus on storytelling through lighting and materials, ensuring every prop and environment piece
+                    serves the creative vision of the project.</p>
+                <div class="aboutme-stats">
+                    <div class="stat">
+                        <h4>5+</h4>
+                        <span>Years Experience</span>
+                    </div>
+                    <div class="stat">
+                        <h4>100+</h4>
+                        <span>Projects Completed</span>
+                    </div>
+                </div>
+                <a href="#" class="btn secondary-btn" download style="margin-top: 2.5rem;">Download Full Resume <svg
+                        width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        style="display:inline; margin-left:4px; vertical-align:-3px;">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="tools" class="tools section">
+        <div class="section-header fade-up">
+            <h2>Software & Tools</h2>
+        </div>
+        <div class="tools-marquee-container fade-up">
+            <div class="tools-marquee">
+                <span>Maya</span><span class="dot">•</span>
+                <span>Substance Painter</span><span class="dot">•</span>
+                <span>Substance Designer</span><span class="dot">•</span>
+                <span>Marmoset Toolbag</span><span class="dot">•</span>
+                <span>Photoshop</span><span class="dot">•</span>
+                <span>3D Coat</span><span class="dot">•</span>
+                <span>DaVinci Resolve</span><span class="dot">•</span>
+                <span>Audition</span><span class="dot">•</span>
+                <span>ZBrush</span><span class="dot">•</span>
+                <span>Unreal Engine</span><span class="dot">•</span>
+                <span>Mixer</span><span class="dot">•</span>
+                <span>After Effects</span><span class="dot">•</span>
+                <span>Nuke</span><span class="dot">•</span>
+                <!-- Duplicate for seamless scroll -->
+                <span>Maya</span><span class="dot">•</span>
+                <span>Substance Painter</span><span class="dot">•</span>
+                <span>Substance Designer</span><span class="dot">•</span>
+                <span>Marmoset Toolbag</span><span class="dot">•</span>
+                <span>Photoshop</span><span class="dot">•</span>
+                <span>3D Coat</span><span class="dot">•</span>
+                <span>DaVinci Resolve</span><span class="dot">•</span>
+                <span>Audition</span><span class="dot">•</span>
+                <span>ZBrush</span><span class="dot">•</span>
+                <span>Unreal Engine</span><span class="dot">•</span>
+                <span>Mixer</span><span class="dot">•</span>
+                <span>After Effects</span><span class="dot">•</span>
+                <span>Nuke</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials section">
+        <div class="section-header fade-up">
+            <div class="badge">Testimonials</div>
+            <h2>What our users say</h2>
+            <p class="testimonials-subtitle">Discover how thousands of teams streamline their operations with our
+                platform.</p>
+        </div>
+
+        <div class="testimonials-container fade-up">
+            <!-- Column 1 -->
+            <div class="testimonial-column column-1">
+                <ul class="testimonial-list">
+                    <!-- Original -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">This ERP revolutionized our operations, streamlining finance and
+                            inventory. The cloud-based platform keeps us productive, even remotely.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Briana Patton">
+                            <div class="author-info">
+                                <cite>Briana Patton</cite>
+                                <span>Operations Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Implementing this ERP was smooth and quick. The customizable,
+                            user-friendly interface made team training effortless.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Bilal Ahmed">
+                            <div class="author-info">
+                                <cite>Bilal Ahmed</cite>
+                                <span>IT Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">The support team is exceptional, guiding us through setup and
+                            providing ongoing assistance, ensuring our satisfaction.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Saman Malik">
+                            <div class="author-info">
+                                <cite>Saman Malik</cite>
+                                <span>Customer Support Lead</span>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Duplicate for infinite scroll loop -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">This ERP revolutionized our operations, streamlining finance and
+                            inventory. The cloud-based platform keeps us productive, even remotely.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Briana Patton">
+                            <div class="author-info">
+                                <cite>Briana Patton</cite>
+                                <span>Operations Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Implementing this ERP was smooth and quick. The customizable,
+                            user-friendly interface made team training effortless.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Bilal Ahmed">
+                            <div class="author-info">
+                                <cite>Bilal Ahmed</cite>
+                                <span>IT Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">The support team is exceptional, guiding us through setup and
+                            providing ongoing assistance, ensuring our satisfaction.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Saman Malik">
+                            <div class="author-info">
+                                <cite>Saman Malik</cite>
+                                <span>Customer Support Lead</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="testimonial-column column-2">
+                <ul class="testimonial-list">
+                    <!-- Original -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">This ERP's seamless integration enhanced our business operations and
+                            efficiency. Highly recommend for its intuitive interface.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Omar Raza">
+                            <div class="author-info">
+                                <cite>Omar Raza</cite>
+                                <span>CEO</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Its robust features and quick support have transformed our workflow,
+                            making us significantly more efficient.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Zainab Hussain">
+                            <div class="author-info">
+                                <cite>Zainab Hussain</cite>
+                                <span>Project Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">The smooth implementation exceeded expectations. It streamlined
+                            processes, improving overall business performance.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Aliza Khan">
+                            <div class="author-info">
+                                <cite>Aliza Khan</cite>
+                                <span>Business Analyst</span>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Duplicate -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">This ERP's seamless integration enhanced our business operations and
+                            efficiency. Highly recommend for its intuitive interface.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Omar Raza">
+                            <div class="author-info">
+                                <cite>Omar Raza</cite>
+                                <span>CEO</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Its robust features and quick support have transformed our workflow,
+                            making us significantly more efficient.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Zainab Hussain">
+                            <div class="author-info">
+                                <cite>Zainab Hussain</cite>
+                                <span>Project Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">The smooth implementation exceeded expectations. It streamlined
+                            processes, improving overall business performance.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Aliza Khan">
+                            <div class="author-info">
+                                <cite>Aliza Khan</cite>
+                                <span>Business Analyst</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Column 3 -->
+            <div class="testimonial-column column-3">
+                <ul class="testimonial-list">
+                    <!-- Original -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Our business functions improved with a user-friendly design and
+                            positive customer feedback.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Farhan Siddiqui">
+                            <div class="author-info">
+                                <cite>Farhan Siddiqui</cite>
+                                <span>Marketing Director</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">They delivered a solution that exceeded expectations, understanding
+                            our needs and enhancing our operations.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Sana Sheikh">
+                            <div class="author-info">
+                                <cite>Sana Sheikh</cite>
+                                <span>Sales Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Using this ERP, our online presence and conversions significantly
+                            improved, boosting business performance.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Hassan Ali">
+                            <div class="author-info">
+                                <cite>Hassan Ali</cite>
+                                <span>E-commerce Manager</span>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Duplicate -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Our business functions improved with a user-friendly design and
+                            positive customer feedback.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Farhan Siddiqui">
+                            <div class="author-info">
+                                <cite>Farhan Siddiqui</cite>
+                                <span>Marketing Director</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">"The 3D animations and environments created were absolutely stunning and brought our project to life flawlessly."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Sana Sheikh">
+                            <div class="author-info">
+                                <cite>Sana Sheikh</cite>
+                                <span>Creative Director</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">"Exceptional attention to detail! The texturing and lighting work on our latest product launch exceeded all expectations."</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Hassan Ali">
+                            <div class="author-info">
+                                <cite>Hassan Ali</cite>
+                                <span>Lead Producer</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer section fade-up">
+        <div class="footer-content">
+            <h2>Let's build something amazing.</h2>
+            <p>Available for freelance opportunities.</p>
+            <button id="toggleContactBtn" class="btn primary-btn" style="margin-top: 1rem;">Get in Touch</button>
+            <div id="contactFormContainer">
+                <form id="contactForm" action="https://formsubmit.co/ajax/Subrataart219@gmail.com" method="POST" class="contact-form">
+                    <!-- Disable Captcha to make sending smoother -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="message-group">
+                        <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                        <button type="submit" class="send-icon-btn" aria-label="Send Message">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                            <div class="btn-spinner"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="#" target="_blank" aria-label="ArtStation" class="social-icon artstation">
+                    <!-- ArtStation SVG -->
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M.014 11.206L4.35 18.7h11.272l-4.332-7.494H.014zm16.486 7.494l4.318-7.48-4.32-7.48H7.838l7.086 12.28 1.576 2.68z" />
+                    </svg>
+                </a>
+                <a href="#" target="_blank" aria-label="LinkedIn" class="social-icon linkedin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="#" target="_blank" aria-label="Instagram" class="social-icon instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+            <p>&copy; 2026 3D Generalist. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Message sent successfully!</div>
+
+    <script type="module">
+        import { Application } from 'https://esm.sh/@splinetool/runtime';
+
+        // Spline 3D Scene initialization
+        const canvas = document.getElementById('canvas3d');
+        const loader = document.getElementById('spline-loader');
+        if (canvas && loader) {
+            const spline = new Application(canvas);
+            spline.load('https://prod.spline.design/mM3ulI1IdDc1Bs7u/scene.splinecode').then(() => {
+                loader.classList.add('hidden');
+                canvas.classList.add('loaded');
+            });
+        }
+    </script>
+    <script src="script.js?v=5"></script>
+</body>
+
+</html>
