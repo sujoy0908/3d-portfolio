@@ -133,12 +133,14 @@ function attachPortfolioListeners() {
                 document.getElementById('detail-textures').innerText = data.textures;
                 
                 const engineContainer = document.getElementById('detail-engine');
-                engineContainer.innerHTML = `
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-accent-mint">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                    </svg>
-                    ${data.engine}
-                `;
+                if (engineContainer) {
+                    engineContainer.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-accent-mint">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        ${data.engine}
+                    `;
+                }
 
                 const modelViewer = document.getElementById('portfolio-model-viewer');
                 modelViewer.src = data.modelUrl;

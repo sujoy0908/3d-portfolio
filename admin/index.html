@@ -2,60 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Content Manager | Admin</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <style>
-    /* Admin Section Custom Enhancements */
-    body {
-      background-color: #050505 !important;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif !important;
-      animation: adminFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
-
-    /* Smooth Entry Animation */
-    @keyframes adminFadeIn {
-      0% { opacity: 0; transform: scale(0.98); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    /* Decap CMS Overrides (Best Effort) */
-    #nc-root {
-      max-width: 100vw;
-      overflow-x: hidden;
-    }
-    
-    /* Make the Netlify Identity login popup more dynamic */
-    iframe#netlify-identity-widget {
-      animation: modalDrop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-    }
-
-    @keyframes modalDrop {
-      0% { opacity: 0; transform: translateY(-30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Mobile Optimizations */
-    @media (max-width: 768px) {
-      body {
-        -webkit-font-smoothing: antialiased;
-      }
-    }
-  </style>
   <!-- Include the script that enables Netlify Identity on this page. -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <!-- Include the script that builds the page and powers Decap CMS -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    // Register custom CSS for the preview pane so it matches the dark theme
-    CMS.registerPreviewStyle("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
-    CMS.registerPreviewStyle("body { font-family: 'Inter', sans-serif; background: #050505; color: white; padding: 20px; }", { raw: true });
-  </script>
 </body>
 </html>
