@@ -146,10 +146,10 @@
 
         passwordForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const code = document.getElementById('access-code').value;
+            const code = document.getElementById('access-code').value.trim();
             
             // Password check against settings.json
-            if (btoa(code) === ndaSettings.nda_password) {
+            if (code === ndaSettings.nda_password) {
                 sessionStorage.setItem('nda_unlocked', 'true');
                 unlockGallery();
                 
