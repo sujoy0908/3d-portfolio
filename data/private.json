@@ -1,11 +1,17 @@
 {
   "projects": [
     {
-        "id": 1,
-        "title": "Project: Nebula",
-        "category": "Unannounced Title",
-        "image": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800",
-        "link": "#"
+      "id": 1,
+      "title": "Project: Nebula",
+      "category": "Unannounced Title",
+      "image": "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=800",
+      "link": "#"
+    },
+    {
+      "title": "example image",
+      "description": "Hi this is Sujoy welcome to 3d art family",
+      "image": "/assets/uploads/9e5185dd-ec5d-4fb3-92f5-003a99fd0d9c.jpg",
+      "link": "https://art-library-with-subrata.netlify.app/assets/uploads/9e5185dd-ec5d-4fb3-92f5-003a99fd0d9c.jpg"
     }
   ]
 }
