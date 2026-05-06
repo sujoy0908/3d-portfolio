@@ -41,6 +41,7 @@ collections:
             widget: "list"
             fields:
               - { label: "Title", name: "title", widget: "string" }
+              - { label: "Category", name: "category", widget: "string" }
               - { label: "Description", name: "description", widget: "text", required: false }
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Link", name: "link", widget: "string" }
