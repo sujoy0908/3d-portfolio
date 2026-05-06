@@ -51,14 +51,15 @@
         <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Private Access</h1>
         <p class="text-gray-400 mb-8 leading-relaxed">This gallery contains NDA-protected work. Please enter the access code provided to you.</p>
         
-        <form id="password-form" class="space-y-4">
+        <div id="password-form" class="space-y-4">
             <input type="password" id="access-code" placeholder="Enter Access Code" 
-                   class="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-accent-mint transition-all text-center text-lg tracking-widest font-mono">
-            <button type="submit" class="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-accent-mint transition-colors">
+                   class="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-accent-mint transition-all text-center text-lg tracking-widest font-mono"
+                   onkeydown="if(event.key === 'Enter') document.getElementById('unlock-btn').click();">
+            <button type="button" id="unlock-btn" class="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-accent-mint transition-colors">
                 Unlock Gallery
             </button>
             <p id="error-msg" class="text-red-500 text-sm hidden">Incorrect access code. Please try again.</p>
-        </form>
+        </div>
         
         <a href="index.html" class="inline-block mt-8 text-gray-500 hover:text-white transition-colors text-sm">
             ← Back to Public Site
@@ -116,7 +117,7 @@
             }, 500);
         });
         
-        const passwordForm = document.getElementById('password-form');
+        const unlockBtn = document.getElementById('unlock-btn');
         const passwordScreen = document.getElementById('password-screen');
         const privateGallery = document.getElementById('private-gallery');
         const errorMsg = document.getElementById('error-msg');
@@ -134,7 +135,7 @@
                         <img src="${project.image}" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
                         <div class="absolute bottom-6 left-6">
-                            <span class="text-[10px] font-bold text-accent-mint uppercase tracking-[0.2em] mb-2 block">${project.category}</span>
+                            <span class="text-[10px] font-bold text-accent-mint uppercase tracking-[0.2em] mb-2 block">${project.category || 'Confidential'}</span>
                             <h3 class="text-xl font-bold italic">${project.title}</h3>
                         </div>
                     </div>
@@ -142,10 +143,7 @@
             `).join('');
         };
 
-        // Check session memory logic moved to fetch callback
-
-        passwordForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        unlockBtn.addEventListener('click', () => {
             const code = document.getElementById('access-code').value.trim();
             
             // Password check against settings.json
