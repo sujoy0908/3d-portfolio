@@ -111,94 +111,97 @@ if (toggleContactBtn && contactFormContainer) {
 
 // Dynamic Project Data
 let projectsData = [];
+let portfolioItems = [];
 
-const portfolioItems = document.querySelectorAll('.portfolio-item');
-if (portfolioItems.length > 0) {
-    portfolioItems.forEach((item, index) => {
-        item.addEventListener('click', (e) => {
-            if (item.classList.contains('active-project')) return;
-            
-            const data = projectsData[index];
-            if (!data) return;
-
-            // Update DOM
-            portfolioItems.forEach(i => i.classList.remove('active-project'));
-            item.classList.add('active-project');
-
-            document.getElementById('detail-title').innerText = data.title;
-            document.getElementById('detail-desc').innerText = data.description;
-            document.getElementById('detail-poly').innerText = data.polycount;
-            document.getElementById('detail-textures').innerText = data.textures;
-            
-            const engineContainer = document.getElementById('detail-engine');
-            engineContainer.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-accent-mint">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                </svg>
-                ${data.engine}
-            `;
-
-            const modelViewer = document.getElementById('portfolio-model-viewer');
-            modelViewer.src = data.modelSrc;
-            if (data.poster) {
-                modelViewer.poster = data.poster;
-            }
-
-            const sliderFinal = document.getElementById('slider-final');
-            const sliderWireframe = document.getElementById('slider-wireframe');
-            
-            // Fade out
-            sliderFinal.classList.add('fade-out');
-            sliderWireframe.classList.add('fade-out');
-
-            setTimeout(() => {
-                sliderFinal.src = data.sliderBefore;
-                sliderWireframe.src = data.sliderAfter;
+function attachPortfolioListeners() {
+    portfolioItems = document.querySelectorAll('.portfolio-item');
+    if (portfolioItems.length > 0) {
+        portfolioItems.forEach((item, index) => {
+            item.addEventListener('click', (e) => {
+                if (item.classList.contains('active-project')) return;
                 
-                sliderFinal.classList.remove('fade-out');
-                sliderWireframe.classList.remove('fade-out');
+                const data = projectsData[index];
+                if (!data) return;
+
+                // Update DOM
+                portfolioItems.forEach(i => i.classList.remove('active-project'));
+                item.classList.add('active-project');
+
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-desc').innerText = data.description;
+                document.getElementById('detail-poly').innerText = data.polycount;
+                document.getElementById('detail-textures').innerText = data.textures;
                 
-                // Trigger skeletons
-                if (typeof triggerSkeleton === 'function') {
-                    triggerSkeleton(sliderFinal);
-                    triggerSkeleton(sliderWireframe);
+                const engineContainer = document.getElementById('detail-engine');
+                engineContainer.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-accent-mint">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    ${data.engine}
+                `;
+
+                const modelViewer = document.getElementById('portfolio-model-viewer');
+                modelViewer.src = data.modelSrc;
+                if (data.poster) {
+                    modelViewer.poster = data.poster;
                 }
-            }, 200);
 
-            // Reset slider to 50%
-            const sf = document.getElementById('slider-foreground');
-            const sh = document.getElementById('slider-handle');
-            if (sf && sh) {
-                sf.style.clipPath = 'polygon(0 0, 50% 0, 50% 100%, 0 100%)';
-                sh.style.left = '50%';
-                const ms = document.getElementById('mesh-slider');
-                if (ms) {
-                    ms.setAttribute('aria-valuenow', 50);
-                    ms.dataset.percent = 50;
+                const sliderFinal = document.getElementById('slider-final');
+                const sliderWireframe = document.getElementById('slider-wireframe');
+                
+                // Fade out
+                sliderFinal.classList.add('fade-out');
+                sliderWireframe.classList.add('fade-out');
+
+                setTimeout(() => {
+                    sliderFinal.src = data.sliderBefore;
+                    sliderWireframe.src = data.sliderAfter;
+                    
+                    sliderFinal.classList.remove('fade-out');
+                    sliderWireframe.classList.remove('fade-out');
+                    
+                    // Trigger skeletons
+                    if (typeof triggerSkeleton === 'function') {
+                        triggerSkeleton(sliderFinal);
+                        triggerSkeleton(sliderWireframe);
+                    }
+                }, 200);
+
+                // Reset slider to 50%
+                const sf = document.getElementById('slider-foreground');
+                const sh = document.getElementById('slider-handle');
+                if (sf && sh) {
+                    sf.style.clipPath = 'polygon(0 0, 50% 0, 50% 100%, 0 100%)';
+                    sh.style.left = '50%';
+                    const ms = document.getElementById('mesh-slider');
+                    if (ms) {
+                        ms.setAttribute('aria-valuenow', 50);
+                        ms.dataset.percent = 50;
+                    }
                 }
-            }
 
-            // Inject Icons
-            if (typeof injectSoftwareIcons === 'function') {
-                injectSoftwareIcons('software-icons', data.software);
-            }
+                // Inject Icons
+                if (typeof injectSoftwareIcons === 'function') {
+                    injectSoftwareIcons('software-icons', data.software);
+                }
 
-            // Scroll to details
-            const targetElement = document.getElementById('project-details');
-            if (targetElement && e && e.isTrusted) {
-                const nav = document.querySelector('.navbar');
-                const headerOffset = (nav ? nav.offsetHeight : 80) + 20;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-            }
+                // Scroll to details
+                const targetElement = document.getElementById('project-details');
+                if (targetElement && e && e.isTrusted) {
+                    const nav = document.querySelector('.navbar');
+                    const headerOffset = (nav ? nav.offsetHeight : 80) + 20;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
 
-            // Deep Linking - Update URL without reloading
-            if (e && e.isTrusted) {
-                window.history.pushState({ project: index }, '', `?project=${index}`);
-            }
+                // Deep Linking - Update URL without reloading
+                if (e && e.isTrusted) {
+                    window.history.pushState({ project: index }, '', `?project=${index}`);
+                }
+            });
         });
-    });
+    }
 }
 
 // AJAX Form Submission
@@ -547,6 +550,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (response.ok) {
             const data = await response.json();
             projectsData = data.projects || data;
+            
+            // Dynamically Render Grid
+            const grid = document.getElementById('portfolio-grid');
+            if (grid) {
+                grid.innerHTML = projectsData.map((project, index) => {
+                    const title = project.title || "Project";
+                    const image = project.image || project.poster || "assets/portfolio_1_1776868956269.png";
+                    return `
+                    <div class="portfolio-item fade-up" style="transition-delay: ${index * 0.1}s">
+                        <img src="${image}" alt="${title}" loading="lazy">
+                        <div class="overlay">
+                            <h3>${title}</h3>
+                        </div>
+                    </div>`;
+                }).join('');
+            }
+            
+            // Attach listeners to newly created items
+            attachPortfolioListeners();
+            
         } else {
             console.error('Failed to load portfolio data');
         }
