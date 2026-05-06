@@ -271,9 +271,9 @@ if (contactForm) {
             } else {
                 if (submitBtn) submitBtn.classList.remove('loading');
                 if (toast) {
-                    toast.innerText = 'Failed to send. Please check your connection.';
+                    toast.innerText = data.message || 'Failed to send. Please check your connection.';
                     toast.classList.add('show', 'error');
-                    setTimeout(() => toast.classList.remove('show', 'error'), 3000);
+                    setTimeout(() => toast.classList.remove('show', 'error'), 5000);
                 }
             }
         } catch (error) {
@@ -281,7 +281,7 @@ if (contactForm) {
             if (toast) {
                 toast.innerText = 'Failed to send. Please check your connection.';
                 toast.classList.add('show', 'error');
-                setTimeout(() => toast.classList.remove('show', 'error'), 3000);
+                setTimeout(() => toast.classList.remove('show', 'error'), 5000);
             }
         }
     });
