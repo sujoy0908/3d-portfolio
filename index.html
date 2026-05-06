@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#050505">
-    <title>3D Generalist | Portfolio</title>
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <!-- SEO & Social Meta Tags -->
     <meta name="description"
@@ -16,17 +20,104 @@
     <meta property="og:type" content="website">
     <meta property="og:image"
         content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&h=630&auto=format&fit=crop">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
-    <link rel="stylesheet" href="styles.css?v=4">
+    <!-- Favicon: Ask the artist for a small square .png version of their logo -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        accent: {
+                            mint: '#41fac6',
+                            slate: '#1a1a1a',
+                        }
+                    },
+                    animation: {
+                        'shimmer': 'shimmer 2s infinite linear',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google model-viewer -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+    <!-- Google Analytics (GA4) placeholder -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Subrata Samanta",
+      "jobTitle": "3D Generalist",
+      "description": "Portfolio of a passionate 3D Generalist specializing in Texturing, Modeling, Lighting, and Environments.",
+      "url": "https://your-portfolio.com",
+      "sameAs": [
+        "https://www.artstation.com/subrata1s",
+        "https://www.linkedin.com/in/subrata-samanta-9b05a936a",
+        "https://www.instagram.com/subrata_.s"
+      ],
+      "knowsAbout": ["3D Modeling", "Texturing", "Lighting", "Environment Art", "Retopology", "PBR"]
+    }
+    </script>
+
+    <link rel="stylesheet" href="styles.css?v=13">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Unstoppable Inline Override */
+        #logo, a[href*="spline.design"], .spline-watermark {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            z-index: -9999 !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Page Transition Overlay -->
+    <div id="page-transition-overlay" class="page-transition-overlay active"></div>
+
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="logo">3D.Gen</div>
+        <div class="logo">
+            <svg id="navbar-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18" cy="18" r="16" stroke="url(#paint0_linear)" stroke-width="3" fill="transparent"/>
+                <path d="M12 24L18 12L24 24" stroke="#41FAC6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 20H22" stroke="#41FAC6" stroke-width="3" stroke-linecap="round"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="2" y1="2" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#41FAC6"/>
+                        <stop offset="1" stop-color="#FA6D0F"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <span>3D.Gen</span>
+        </div>
         <div class="mobile-menu-btn" id="mobileMenuBtn">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -76,7 +167,6 @@
                 <div class="spinner"></div>
             </div>
             <canvas id="canvas3d"></canvas>
-            <div class="spline-watermark-hider"></div>
         </div>
     </header>
 
@@ -235,23 +325,135 @@
         <div class="section-header fade-up">
             <h2>Featured Work</h2>
         </div>
+        
         <div class="portfolio-grid">
             <div class="portfolio-item fade-up">
-                <img src="assets/portfolio_1_1776868956269.png" alt="Treasure Chest">
+                <img src="assets/portfolio_1_1776868956269.png" alt="Treasure Chest" loading="lazy">
                 <div class="overlay">
                     <h3>Stylized Game Prop</h3>
                 </div>
             </div>
             <div class="portfolio-item fade-up" style="transition-delay: 0.1s">
-                <img src="assets/portfolio_2_1776868976686.png" alt="Sci-fi Corridor">
+                <img src="assets/portfolio_2_1776868976686.png" alt="Sci-fi Corridor" loading="lazy">
                 <div class="overlay">
                     <h3>Photorealistic Environment</h3>
                 </div>
             </div>
             <div class="portfolio-item fade-up" style="transition-delay: 0.2s">
-                <img src="assets/portfolio_3_1776869001401.png" alt="Character Model">
+                <img src="assets/portfolio_3_1776869001401.png" alt="Character Model" loading="lazy">
                 <div class="overlay">
                     <h3>Character Sculpt</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Detail View / Technical Specs -->
+        <div id="project-details" class="mt-20 p-8 bg-accent-slate/50 rounded-2xl border border-white/10 backdrop-blur-xl fade-up">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Main Content -->
+                <div class="lg:col-span-2">
+                    <h3 id="detail-title" class="text-3xl font-extrabold text-white mb-6">Technical Deep Dive</h3>
+                    <p id="detail-desc" class="text-gray-400 text-lg leading-relaxed mb-8">
+                        This project focuses on high-fidelity PBR texturing and optimized geometry for real-time applications. 
+                        The workflow involved high-to-low poly baking and custom shader creation in Unreal Engine.
+                    </p>
+                    
+                    <!-- Interactive 3D Model Viewer -->
+                    <div class="relative group mt-8">
+                        <div id="model-viewer-container" class="aspect-video bg-gradient-to-b from-accent-slate/20 to-black/40 rounded-2xl overflow-hidden border border-white/5 relative shadow-2xl">
+                            <model-viewer 
+                                id="portfolio-model-viewer"
+                                src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+                                poster="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&h=630&auto=format&fit=crop"
+                                alt="3D Model Viewer"
+                                shadow-intensity="1" 
+                                camera-controls 
+                                auto-rotate 
+                                ar
+                                ar-modes="webxr scene-viewer quick-look"
+                                loading="lazy"
+                                reveal="interaction"
+                                class="w-full h-full cursor-grab active:cursor-grabbing"
+                                style="background: transparent;">
+                                
+                                <div class="absolute top-4 right-4 flex gap-2">
+                                    <button slot="ar-button" class="bg-accent-mint text-black px-4 py-2 rounded-full text-sm font-bold shadow-lg hover:scale-105 transition-transform flex items-center gap-2">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                                        AR VIEW
+                                    </button>
+                                </div>
+
+                                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/30 text-xs font-mono flex items-center gap-2 pointer-events-none group-hover:text-white/60 transition-colors">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path><path d="m16 10-4 4-4-4"></path></svg>
+                                    DRAG TO ROTATE • SCROLL TO ZOOM
+                                </div>
+                            </model-viewer>
+                        </div>
+                    </div>
+                    
+                    <!-- Before/After Mesh Comparison Slider -->
+                    <div class="mt-12">
+                        <h4 class="text-lg font-semibold text-white/80 mb-4 flex items-center gap-2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent-mint"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                            Topology & Mesh Comparison
+                        </h4>
+                        <div id="mesh-slider" class="relative aspect-video rounded-2xl overflow-hidden border border-white/10 group cursor-col-resize select-none outline-none focus-visible:ring-2 focus-visible:ring-accent-mint focus-visible:ring-offset-2 focus-visible:ring-offset-black" tabindex="0" role="slider" aria-label="Comparison slider: Drag to see wireframe" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                            <!-- After Image (Wireframe) -->
+                            <div class="absolute inset-0 bg-accent-slate">
+                                <img id="slider-wireframe" src="https://images.unsplash.com/photo-1635339001026-6114ad42aef7?q=80&w=1200&h=675&auto=format&fit=crop" 
+                                     alt="Wireframe" class="w-full h-full object-cover grayscale opacity-50">
+                            </div>
+                            <!-- Before Image (Final Render) -->
+                            <div id="slider-foreground" class="absolute inset-0 pointer-events-none" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+                                <img id="slider-final" src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1200&h=675&auto=format&fit=crop" 
+                                     alt="Final Render" class="w-full h-full object-cover">
+                            </div>
+                            <!-- Slider Handle -->
+                            <div id="slider-handle" class="absolute top-0 bottom-0 left-1/2 w-1 bg-accent-mint shadow-[0_0_15px_rgba(65,250,198,0.5)] z-10 pointer-events-none transform -translate-x-1/2">
+                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-accent-mint rounded-full flex items-center justify-center shadow-2xl border-4 border-black/50">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4"><path d="m18 8 4 4-4 4M6 8l-4 4 4 4"/></svg>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-white uppercase tracking-widest z-20 pointer-events-none">Final Render</div>
+                            <div class="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-white uppercase tracking-widest z-20 pointer-events-none text-right">Wireframe</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar / Technical Specs -->
+                <div class="bg-black/30 p-8 rounded-2xl border border-white/5 relative">
+                    <div class="flex justify-between items-center mb-8">
+                        <h4 class="text-xl font-bold text-accent-mint uppercase tracking-widest">Technical Specs</h4>
+                        <button id="share-project-btn" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-sm bg-white/5 px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/10 active:scale-95" aria-label="Share Project" title="Copy link to project">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                            Share
+                        </button>
+                    </div>
+                    <ul class="space-y-6">
+                        <li class="flex items-center justify-between border-b border-white/5 pb-4">
+                            <span class="text-gray-400">Polycount</span>
+                            <span id="detail-poly" class="text-white font-mono">42k Tris / 21k Quads</span>
+                        </li>
+                        <li class="flex items-center justify-between border-b border-white/5 pb-4">
+                            <span class="text-gray-400">Texture Sets</span>
+                            <span id="detail-textures" class="text-white font-mono">4x 4K (PBR)</span>
+                        </li>
+                        <li class="flex flex-col gap-3 border-b border-white/5 pb-4">
+                            <span class="text-gray-400">Software Used</span>
+                            <div id="software-icons" class="flex flex-wrap gap-4 mt-1 min-h-[48px]">
+                                <!-- Icons injected via JS -->
+                            </div>
+                        </li>
+                        <li class="flex items-center justify-between">
+                            <span class="text-gray-400">Engine / Platform</span>
+                            <span id="detail-engine" class="text-white font-semibold flex items-center gap-2">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-accent-mint">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                </svg>
+                                Unreal Engine 5
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -336,9 +538,8 @@
     <section id="testimonials" class="testimonials section">
         <div class="section-header fade-up">
             <div class="badge">Testimonials</div>
-            <h2>What our users say</h2>
-            <p class="testimonials-subtitle">Discover how thousands of teams streamline their operations with our
-                platform.</p>
+            <h2>What our partners say</h2>
+            <p class="testimonials-subtitle">Discover how we help creative teams bring their visions to life.</p>
         </div>
 
         <div class="testimonials-container fade-up">
@@ -347,75 +548,69 @@
                 <ul class="testimonial-list">
                     <!-- Original -->
                     <li class="testimonial-card">
-                        <p class="testimonial-text">This ERP revolutionized our operations, streamlining finance and
-                            inventory. The cloud-based platform keeps us productive, even remotely.</p>
+                        <p class="testimonial-text">The 3D modeling and lighting expertise provided were top-tier. They elevated our game environments beyond what we thought possible.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Briana Patton">
                             <div class="author-info">
                                 <cite>Briana Patton</cite>
-                                <span>Operations Manager</span>
+                                <span>Lead Technical Artist</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">Implementing this ERP was smooth and quick. The customizable,
-                            user-friendly interface made team training effortless.</p>
+                        <p class="testimonial-text">An incredibly smooth pipeline integration. The unbeatable texturing and optimized geometry made engine integration effortless.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Bilal Ahmed">
                             <div class="author-info">
                                 <cite>Bilal Ahmed</cite>
-                                <span>IT Manager</span>
+                                <span>Game Producer</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">The support team is exceptional, guiding us through setup and
-                            providing ongoing assistance, ensuring our satisfaction.</p>
+                        <p class="testimonial-text">Their lighting setups brought true cinematic quality to our cutscenes. Exceptional attention to detail from blockout to final render.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Saman Malik">
                             <div class="author-info">
                                 <cite>Saman Malik</cite>
-                                <span>Customer Support Lead</span>
+                                <span>Creative Director</span>
                             </div>
                         </div>
                     </li>
                     <!-- Duplicate for infinite scroll loop -->
                     <li class="testimonial-card">
-                        <p class="testimonial-text">This ERP revolutionized our operations, streamlining finance and
-                            inventory. The cloud-based platform keeps us productive, even remotely.</p>
+                        <p class="testimonial-text">The 3D modeling and lighting expertise provided were top-tier. They elevated our game environments beyond what we thought possible.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Briana Patton">
                             <div class="author-info">
                                 <cite>Briana Patton</cite>
-                                <span>Operations Manager</span>
+                                <span>Lead Technical Artist</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">Implementing this ERP was smooth and quick. The customizable,
-                            user-friendly interface made team training effortless.</p>
+                        <p class="testimonial-text">An incredibly smooth pipeline integration. The unbeatable texturing and optimized geometry made engine integration effortless.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Bilal Ahmed">
                             <div class="author-info">
                                 <cite>Bilal Ahmed</cite>
-                                <span>IT Manager</span>
+                                <span>Game Producer</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">The support team is exceptional, guiding us through setup and
-                            providing ongoing assistance, ensuring our satisfaction.</p>
+                        <p class="testimonial-text">Their lighting setups brought true cinematic quality to our cutscenes. Exceptional attention to detail from blockout to final render.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Saman Malik">
                             <div class="author-info">
                                 <cite>Saman Malik</cite>
-                                <span>Customer Support Lead</span>
+                                <span>Creative Director</span>
                             </div>
                         </div>
                     </li>
@@ -427,75 +622,69 @@
                 <ul class="testimonial-list">
                     <!-- Original -->
                     <li class="testimonial-card">
-                        <p class="testimonial-text">This ERP's seamless integration enhanced our business operations and
-                            efficiency. Highly recommend for its intuitive interface.</p>
+                        <p class="testimonial-text">Their seamless asset integration enhanced our production efficiency. Highly recommend for their intuitive understanding of art direction.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Omar Raza">
                             <div class="author-info">
                                 <cite>Omar Raza</cite>
-                                <span>CEO</span>
+                                <span>Art Director</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">Its robust features and quick support have transformed our workflow,
-                            making us significantly more efficient.</p>
+                        <p class="testimonial-text">Their robust PBR workflows and quick turnaround times have transformed our level design process.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Zainab Hussain">
                             <div class="author-info">
                                 <cite>Zainab Hussain</cite>
-                                <span>Project Manager</span>
+                                <span>Lead Level Designer</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">The smooth implementation exceeded expectations. It streamlined
-                            processes, improving overall business performance.</p>
+                        <p class="testimonial-text">The optimized prop delivery exceeded expectations. It streamlined our environment assembly, improving overall game performance.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Aliza Khan">
                             <div class="author-info">
                                 <cite>Aliza Khan</cite>
-                                <span>Business Analyst</span>
+                                <span>Environment Artist</span>
                             </div>
                         </div>
                     </li>
                     <!-- Duplicate -->
                     <li class="testimonial-card">
-                        <p class="testimonial-text">This ERP's seamless integration enhanced our business operations and
-                            efficiency. Highly recommend for its intuitive interface.</p>
+                        <p class="testimonial-text">Their seamless asset integration enhanced our production efficiency. Highly recommend for their intuitive understanding of art direction.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Omar Raza">
                             <div class="author-info">
                                 <cite>Omar Raza</cite>
-                                <span>CEO</span>
+                                <span>Art Director</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">Its robust features and quick support have transformed our workflow,
-                            making us significantly more efficient.</p>
+                        <p class="testimonial-text">Their robust PBR workflows and quick turnaround times have transformed our level design process.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Zainab Hussain">
                             <div class="author-info">
                                 <cite>Zainab Hussain</cite>
-                                <span>Project Manager</span>
+                                <span>Lead Level Designer</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">The smooth implementation exceeded expectations. It streamlined
-                            processes, improving overall business performance.</p>
+                        <p class="testimonial-text">The optimized prop delivery exceeded expectations. It streamlined our environment assembly, improving overall game performance.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Aliza Khan">
                             <div class="author-info">
                                 <cite>Aliza Khan</cite>
-                                <span>Business Analyst</span>
+                                <span>Environment Artist</span>
                             </div>
                         </div>
                     </li>
@@ -507,56 +696,18 @@
                 <ul class="testimonial-list">
                     <!-- Original -->
                     <li class="testimonial-card">
-                        <p class="testimonial-text">Our business functions improved with a user-friendly design and
-                            positive customer feedback.</p>
+                        <p class="testimonial-text">The 3D animations and environments created were absolutely stunning and brought our project to life flawlessly.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Farhan Siddiqui">
                             <div class="author-info">
                                 <cite>Farhan Siddiqui</cite>
-                                <span>Marketing Director</span>
+                                <span>Senior Animator</span>
                             </div>
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">They delivered a solution that exceeded expectations, understanding
-                            our needs and enhancing our operations.</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150"
-                                alt="Sana Sheikh">
-                            <div class="author-info">
-                                <cite>Sana Sheikh</cite>
-                                <span>Sales Manager</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="testimonial-card">
-                        <p class="testimonial-text">Using this ERP, our online presence and conversions significantly
-                            improved, boosting business performance.</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150"
-                                alt="Hassan Ali">
-                            <div class="author-info">
-                                <cite>Hassan Ali</cite>
-                                <span>E-commerce Manager</span>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- Duplicate -->
-                    <li class="testimonial-card">
-                        <p class="testimonial-text">Our business functions improved with a user-friendly design and
-                            positive customer feedback.</p>
-                        <div class="testimonial-author">
-                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150"
-                                alt="Farhan Siddiqui">
-                            <div class="author-info">
-                                <cite>Farhan Siddiqui</cite>
-                                <span>Marketing Director</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="testimonial-card">
-                        <p class="testimonial-text">"The 3D animations and environments created were absolutely stunning and brought our project to life flawlessly."</p>
+                        <p class="testimonial-text">Exceptional attention to detail! The texturing and lighting work on our latest product launch exceeded all expectations.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Sana Sheikh">
@@ -567,9 +718,43 @@
                         </div>
                     </li>
                     <li class="testimonial-card">
-                        <p class="testimonial-text">"Exceptional attention to detail! The texturing and lighting work on our latest product launch exceeded all expectations."</p>
+                        <p class="testimonial-text">Using their high-quality 3D assets, our visual fidelity significantly improved, boosting overall player immersion.</p>
                         <div class="testimonial-author">
                             <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Hassan Ali">
+                            <div class="author-info">
+                                <cite>Hassan Ali</cite>
+                                <span>Lead Producer</span>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Duplicate -->
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">The 3D animations and environments created were absolutely stunning and brought our project to life flawlessly.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Farhan Siddiqui">
+                            <div class="author-info">
+                                <cite>Farhan Siddiqui</cite>
+                                <span>Senior Animator</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Exceptional attention to detail! The texturing and lighting work on our latest product launch exceeded all expectations.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150"
+                                alt="Sana Sheikh">
+                            <div class="author-info">
+                                <cite>Sana Sheikh</cite>
+                                <span>Creative Director</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="testimonial-card">
+                        <p class="testimonial-text">Using their high-quality 3D assets, our visual fidelity significantly improved, boosting overall player immersion.</p>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&q=80&w=150&h=150"
                                 alt="Hassan Ali">
                             <div class="author-info">
                                 <cite>Hassan Ali</cite>
@@ -586,9 +771,15 @@
         <div class="footer-content">
             <h2>Let's build something amazing.</h2>
             <p>Available for freelance opportunities.</p>
-            <button id="toggleContactBtn" class="btn primary-btn" style="margin-top: 1rem;">Get in Touch</button>
+            <div class="flex flex-wrap justify-center gap-4 mt-4">
+                <button id="toggleContactBtn" class="btn primary-btn">Get in Touch</button>
+                <button id="copyEmailBtn" class="btn secondary-btn flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span>Copy Email</span>
+                </button>
+            </div>
             <div id="contactFormContainer">
-                <form id="contactForm" action="https://formsubmit.co/ajax/Subrataart219@gmail.com" method="POST" class="contact-form">
+                <form id="contactForm" action="https://formsubmit.co/Subrataart219@gmail.com" method="POST" class="contact-form">
                     <!-- Disable Captcha to make sending smoother -->
                     <input type="hidden" name="_captcha" value="false">
                     <div class="form-group">
@@ -597,7 +788,7 @@
                     </div>
                     <div class="message-group">
                         <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                        <button type="submit" class="send-icon-btn" aria-label="Send Message">
+                        <button type="submit" class="send-icon-btn" aria-label="Send Message" id="submit-message">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -611,14 +802,15 @@
         </div>
         <div class="footer-bottom">
             <div class="social-links">
-                <a href="#" target="_blank" aria-label="ArtStation" class="social-icon artstation">
+                <a href="https://www.artstation.com/subrata1s" target="_blank" rel="noopener noreferrer" aria-label="ArtStation"
+                    class="social-icon artstation">
                     <!-- ArtStation SVG -->
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M.014 11.206L4.35 18.7h11.272l-4.332-7.494H.014zm16.486 7.494l4.318-7.48-4.32-7.48H7.838l7.086 12.28 1.576 2.68z" />
                     </svg>
                 </a>
-                <a href="#" target="_blank" aria-label="LinkedIn" class="social-icon linkedin">
+                <a href="https://www.linkedin.com/in/subrata-samanta-9b05a936a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon linkedin">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -626,7 +818,7 @@
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="#" target="_blank" aria-label="Instagram" class="social-icon instagram">
+                <a href="https://www.instagram.com/subrata_.s" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon instagram">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -635,7 +827,7 @@
                     </svg>
                 </a>
             </div>
-            <p>&copy; 2026 3D Generalist. All rights reserved.</p>
+            <p>&copy; 2026 3D Generalist. All rights reserved. • <a href="private.html" class="hover:text-accent-mint transition-colors">NDA Gallery</a></p>
         </div>
     </footer>
 
@@ -644,21 +836,99 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast">Message sent successfully!</div>
 
-    <script type="module">
-        import { Application } from 'https://esm.sh/@splinetool/runtime';
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="custom-cursor">
+        <svg class="cursor-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path></svg>
+    </div>
 
-        // Spline 3D Scene initialization
+    <script type="module">
         const canvas = document.getElementById('canvas3d');
         const loader = document.getElementById('spline-loader');
-        if (canvas && loader) {
-            const spline = new Application(canvas);
-            spline.load('https://prod.spline.design/mM3ulI1IdDc1Bs7u/scene.splinecode').then(() => {
-                loader.classList.add('hidden');
-                canvas.classList.add('loaded');
+        
+        // Data Saver Check
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const isDataSaver = connection ? (connection.saveData || ['slow-2g', '2g', '3g'].includes(connection.effectiveType)) : false;
+
+        const loadSpline = () => {
+            import('https://esm.sh/@splinetool/runtime').then(({ Application }) => {
+                if (canvas && loader) {
+                    const spline = new Application(canvas);
+                    spline.load('https://prod.spline.design/mM3ulI1IdDc1Bs7u/scene.splinecode').then(() => {
+                        loader.classList.add('hidden');
+                        canvas.classList.add('loaded');
+                    });
+                }
             });
+        };
+
+        if (window.innerWidth >= 1024) {
+            if (isDataSaver) {
+                if (loader) {
+                    loader.innerHTML = `<button class="btn primary-btn" id="load-3d-btn" style="pointer-events: auto;">Load High-Quality 3D (1.2 MB)</button>`;
+                    document.getElementById('load-3d-btn').addEventListener('click', (e) => {
+                        e.target.innerHTML = '<div class="spinner"></div>';
+                        e.target.style.background = 'transparent';
+                        e.target.style.border = 'none';
+                        e.target.style.padding = '0';
+                        loadSpline();
+                    });
+                }
+            } else {
+                loadSpline();
+            }
+        } else {
+            // Mobile fallback: hide loader to reveal CSS background
+            if (loader) loader.classList.add('hidden');
+            if (canvas) canvas.style.display = 'none';
         }
     </script>
-    <script src="script.js?v=5"></script>
-</body>
+    
+    <!-- Ultimate Physical Blackout Cover -->
+    <div id="absolute-watermark-cover" style="position: absolute; width: 180px; height: 60px; background-color: #070606; opacity: 0; transition: opacity 0.5s ease; z-index: 2147483647; pointer-events: none; display: none;"></div>
+    <script>
+        (function() {
+            const absoluteCover = document.getElementById('absolute-watermark-cover');
+            const splineContainer = document.getElementById('spline-container');
+            let isTracking = false;
 
+            const updateCover = () => {
+                if (!splineContainer) return;
+                
+                // Hide completely on mobile or if canvas is hidden
+                if (window.innerWidth < 1024) {
+                    absoluteCover.style.display = 'none';
+                } else {
+                    absoluteCover.style.display = 'block';
+                    const rect = splineContainer.getBoundingClientRect();
+                    // Lock perfectly to bottom right
+                    absoluteCover.style.top = (rect.bottom + window.scrollY - 60) + 'px';
+                    absoluteCover.style.left = (rect.right + window.scrollX - 180) + 'px';
+                }
+                
+                if (isTracking) {
+                    requestAnimationFrame(updateCover);
+                }
+            };
+
+            // Start highly aggressive tracking
+            isTracking = true;
+            requestAnimationFrame(updateCover);
+
+            // Also attach to resize just in case
+            window.addEventListener('resize', updateCover);
+        })();
+    </script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+    <script src="script.js?v=12"></script>
+</body>
 </html>

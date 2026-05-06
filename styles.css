@@ -31,30 +31,30 @@ body {
 }
 
 /* Typography */
-h1,
-h2,
-h3 {
+body h1,
+body h2,
+body h3 {
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
 }
 
-h1 {
+body h1 {
     font-size: clamp(2.5rem, 6vw, 4.5rem);
 }
 
-h1 span {
+body h1 span {
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-red) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-h2 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+body h2 {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
     margin-bottom: 1rem;
 }
 
-p {
+body p {
     color: var(--text-secondary);
     font-size: 1.125rem;
 }
@@ -86,7 +86,34 @@ p {
     font-weight: 800;
     font-size: 1.5rem;
     letter-spacing: -0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
+
+#navbar-icon {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(65, 250, 198, 0.4);
+    transition: box-shadow 0.3s ease;
+    animation: breathe-glow 3s infinite alternate ease-in-out;
+}
+
+#navbar-icon:hover {
+    box-shadow: 0 0 25px rgba(65, 250, 198, 0.9), 0 0 40px rgba(65, 250, 198, 0.5);
+    animation: none;
+}
+
+@keyframes breathe-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(65, 250, 198, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(65, 250, 198, 0.7), 0 0 30px rgba(65, 250, 198, 0.3);
+    }
+}
+
 
 .nav-links {
     display: flex;
@@ -141,6 +168,7 @@ p {
     padding: 8rem 5%;
     max-width: 1400px;
     margin: 0 auto;
+    scroll-margin-top: 100px;
 }
 
 .section-header {
@@ -156,6 +184,14 @@ p {
     padding: 0 5%;
     position: relative;
     overflow: hidden;
+    background-color: var(--bg-color);
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* Interaction Protection against invisible hitboxes */
+#hero>*:not(.spline-container):not(.hero-content) {
+    pointer-events: none !important;
 }
 
 .hero-content {
@@ -186,18 +222,12 @@ p {
     height: 100%;
     z-index: 1;
     pointer-events: auto;
-    /* allow spline interaction */
 }
 
-/* Attempt to hide the Spline watermark */
-.spline-container>a,
-.spline-container>div:not(#spline-loader):not(.spline-watermark-hider),
-#canvas3d~div:not(.spline-watermark-hider),
-#canvas3d~a,
-a[href*="spline.design"] {
-    display: none !important;
+/* Unstoppable Stacking Context Killer for Spline Watermark Host */
+body > div:not([id]):not([class]) {
+    z-index: -2147483647 !important;
     opacity: 0 !important;
-    visibility: hidden !important;
     pointer-events: none !important;
 }
 
@@ -214,20 +244,6 @@ a[href*="spline.design"] {
     opacity: 1;
 }
 
-/* Hard cover to block WebGL drawn watermark */
-.spline-watermark-hider {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 250px;
-    height: 80px;
-    background-color: var(--bg-color);
-    /* Perfectly matches the body background */
-    z-index: 99999;
-    pointer-events: none;
-    /* Let clicks pass through if needed, though there's nothing underneath */
-}
-
 .spline-loader {
     position: absolute;
     inset: 0;
@@ -236,6 +252,7 @@ a[href*="spline.design"] {
     justify-content: center;
     transition: opacity 0.5s ease;
     z-index: 2;
+    pointer-events: none;
 }
 
 .spline-loader.hidden {
@@ -292,6 +309,7 @@ a[href*="spline.design"] {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    perspective: 1000px;
 }
 
 .portfolio-item {
@@ -301,20 +319,23 @@ a[href*="spline.design"] {
     aspect-ratio: 4/3;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.1s ease-out, box-shadow 0.4s ease, border-color 0.4s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
 }
 
 .portfolio-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s;
+    transition: filter 0.7s;
 }
 
 .portfolio-item:hover {
-    transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(250, 109, 15, 0.2);
     border-color: var(--accent);
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-10px);
 }
 
 .portfolio-item:hover img {
@@ -331,10 +352,18 @@ a[href*="spline.design"] {
     padding: 2rem;
     opacity: 0;
     transition: opacity 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
-.portfolio-item:hover .overlay {
+.portfolio-item:hover .overlay,
+.portfolio-item.active-project .overlay {
     opacity: 1;
+}
+
+.portfolio-item.active-project {
+    border: 2px solid var(--accent);
+    transform: scale(0.95);
 }
 
 .overlay h3 {
@@ -853,6 +882,15 @@ a[href*="spline.design"] {
     .portfolio-grid {
         grid-template-columns: 1fr;
     }
+
+    section {
+        padding-top: 4rem !important;
+        padding-bottom: 4rem !important;
+    }
+
+    .tools-marquee span {
+        font-size: 1.5rem !important;
+    }
 }
 
 /* Demo Section */
@@ -1228,6 +1266,11 @@ a[href*="spline.design"] {
     margin-top: 2rem;
 }
 
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
@@ -1324,7 +1367,7 @@ a[href*="spline.design"] {
     .spline-container {
         display: none !important;
     }
-    
+
     .hero-content {
         margin-top: 0;
         text-align: center;
@@ -1347,9 +1390,11 @@ a[href*="spline.design"] {
     h1 {
         font-size: 2.2rem;
     }
+
     .hero-content p {
         font-size: 1rem;
     }
+
     .community-badge {
         left: 1rem;
         bottom: 1rem;
@@ -1357,9 +1402,11 @@ a[href*="spline.design"] {
         width: auto;
         padding: 0.75rem;
     }
+
     .demo-main-image {
         max-width: 100%;
     }
+
     .aboutme-stats {
         gap: 1.5rem;
         flex-wrap: wrap;
@@ -1370,9 +1417,11 @@ a[href*="spline.design"] {
     .section {
         padding: 4rem 5%;
     }
+
     .tools-marquee span {
         font-size: 1.5rem;
     }
+
     .tools-marquee .dot {
         font-size: 1rem;
     }
@@ -1380,33 +1429,174 @@ a[href*="spline.design"] {
 
 /* Ultra Small Devices (e.g. Fold, old iPhones) */
 @media (max-width: 380px) {
-    h1 {
+    body h1 {
         font-size: 1.8rem;
     }
-    h2 {
+
+    body h2 {
         font-size: 1.5rem;
     }
+
     .section {
         padding: 3rem 1rem;
     }
+
     .btn {
         padding: 0.6rem 1.2rem;
         font-size: 0.9rem;
     }
-    .service-card, .testimonial-card {
+
+    .service-card,
+    .testimonial-card {
         padding: 1.5rem;
     }
+
     .aboutme-image {
         width: 200px;
         height: 200px;
     }
-    .contact-form input, .contact-form textarea {
+
+    .contact-form input,
+    .contact-form textarea {
         padding: 0.8rem 1rem;
     }
+
     .logo {
         font-size: 1.2rem;
     }
+
     .nav-links a {
         font-size: 1.2rem;
     }
+}
+
+/* Custom Cursor */
+@media (pointer: fine) {
+
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"],
+    .portfolio-item,
+    #mesh-slider,
+    model-viewer {
+        cursor: none !important;
+    }
+
+    .custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999999;
+        /* Highest priority */
+        transform: translate(-50%, -50%);
+        transition: width 0.3s cubic-bezier(0.76, 0, 0.24, 1),
+            height 0.3s cubic-bezier(0.76, 0, 0.24, 1),
+            background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        mix-blend-mode: difference;
+        background-color: white;
+    }
+
+    .custom-cursor .cursor-icon {
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .custom-cursor.active {
+        width: 60px;
+        height: 60px;
+        background-color: var(--accent-mint);
+        mix-blend-mode: normal;
+        box-shadow: 0 0 20px rgba(65, 250, 198, 0.5);
+    }
+
+    .custom-cursor.active .cursor-icon {
+        display: block !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Page Transition Overlay */
+.page-transition-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: var(--accent-mint);
+    z-index: 9999999;
+    transform: translateY(100%);
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+    pointer-events: none;
+}
+
+.page-transition-overlay.active {
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.page-transition-overlay.fade-out {
+    transform: translateY(-100%);
+}
+
+/* Form Validation Animation */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.input-error {
+    border-color: #ff4444 !important;
+    animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+    border-radius: 10px;
+    border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-mint);
+}
+
+/* GPU Hardware Acceleration for 3D Tilt */
+.portfolio-item, .glass {
+    will-change: transform;
+    transform-style: preserve-3d;
 }

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#050505">
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <title>NDA Gallery | 3D Generalist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#050505',
+                        accent: {
+                            mint: '#41fac6',
+                            slate: '#1a1a1a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #050505; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .page-transition-overlay { position: fixed; inset: 0; background: #050505; z-index: 50; transition: opacity 0.5s ease; opacity: 0; pointer-events: none; }
+        .page-transition-overlay.active { opacity: 1; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    
+    <!-- Page Transition Overlay -->
+    <div id="page-transition-overlay" class="page-transition-overlay active"></div>
+
+    <!-- Password Entry Section -->
+    <div id="password-screen" class="max-w-md w-full text-center fade-in">
+        <div class="mb-8 flex justify-center">
+            <div class="w-16 h-16 bg-accent-mint/10 rounded-2xl flex items-center justify-center border border-accent-mint/20">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#41fac6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+        </div>
+        <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Private Access</h1>
+        <p class="text-gray-400 mb-8 leading-relaxed">This gallery contains NDA-protected work. Please enter the access code provided to you.</p>
+        
+        <form id="password-form" class="space-y-4">
+            <input type="password" id="access-code" placeholder="Enter Access Code" 
+                   class="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-accent-mint transition-all text-center text-lg tracking-widest font-mono">
+            <button type="submit" class="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-accent-mint transition-colors">
+                Unlock Gallery
+            </button>
+            <p id="error-msg" class="text-red-500 text-sm hidden">Incorrect access code. Please try again.</p>
+        </form>
+        
+        <a href="index.html" class="inline-block mt-8 text-gray-500 hover:text-white transition-colors text-sm">
+            ← Back to Public Site
+        </a>
+    </div>
+
+    <!-- Hidden Gallery Section -->
+    <div id="private-gallery" class="hidden w-full max-w-6xl fade-in">
+        <div class="flex items-center justify-between mb-12">
+            <div>
+                <h2 class="text-4xl font-extrabold mb-2">NDA Gallery</h2>
+                <p class="text-accent-mint font-mono text-sm tracking-widest uppercase">Confidential Projects</p>
+            </div>
+            <button id="logout-btn" class="px-6 py-2 border border-white/10 rounded-full hover:bg-white/5 transition-colors text-sm">Lock Session</button>
+        </div>
+
+        <div id="nda-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Dynamic projects will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        // Data-Driven NDA Projects
+        let privateProjectsData = [];
+        let ndaSettings = { nda_password: 'Q1JFQVRJVkUyMDI2' };
+
+        // Fetch data
+        Promise.all([
+            fetch('./data/private.json').then(res => res.json()),
+            fetch('./data/settings.json').then(res => res.json())
+        ]).then(([projects, settings]) => {
+            if (projects) privateProjectsData = projects.projects || projects;
+            if (settings && settings.nda_password) ndaSettings = settings;
+            
+            // Check session memory
+            if (sessionStorage.getItem('nda_unlocked') === 'true') {
+                unlockGallery();
+            }
+        }).catch(err => console.error("Error loading data:", err));
+
+
+        // Page Transition
+        const pageTransitionOverlay = document.getElementById('page-transition-overlay');
+        if (pageTransitionOverlay) {
+            setTimeout(() => {
+                pageTransitionOverlay.classList.remove('active');
+            }, 300);
+        }
+
+        document.querySelector('a[href="index.html"]').addEventListener('click', (e) => {
+            e.preventDefault();
+            pageTransitionOverlay.classList.add('active');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        });
+        
+        const passwordForm = document.getElementById('password-form');
+        const passwordScreen = document.getElementById('password-screen');
+        const privateGallery = document.getElementById('private-gallery');
+        const errorMsg = document.getElementById('error-msg');
+        const logoutBtn = document.getElementById('logout-btn');
+        const ndaGrid = document.getElementById('nda-grid');
+
+        const unlockGallery = () => {
+            passwordScreen.classList.add('hidden');
+            privateGallery.classList.remove('hidden');
+            
+            // Inject dynamic projects
+            ndaGrid.innerHTML = privateProjectsData.map(project => `
+                <a href="${project.link}" class="glass rounded-3xl overflow-hidden group block">
+                    <div class="aspect-video bg-accent-slate relative">
+                        <img src="${project.image}" class="w-full h-full object-cover opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                        <div class="absolute bottom-6 left-6">
+                            <span class="text-[10px] font-bold text-accent-mint uppercase tracking-[0.2em] mb-2 block">${project.category}</span>
+                            <h3 class="text-xl font-bold italic">${project.title}</h3>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+        };
+
+        // Check session memory logic moved to fetch callback
+
+        passwordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const code = document.getElementById('access-code').value;
+            
+            // Password check against settings.json
+            if (btoa(code) === ndaSettings.nda_password) {
+                sessionStorage.setItem('nda_unlocked', 'true');
+                unlockGallery();
+                
+                // Track success event
+                console.log('Analytics Event: private_access_success');
+                if (window.opener && typeof window.opener.gtag === 'function') {
+                    window.opener.gtag('event', 'private_access_success');
+                }
+            } else {
+                errorMsg.classList.remove('hidden');
+                errorMsg.classList.add('animate-shake');
+                setTimeout(() => errorMsg.classList.remove('animate-shake'), 500);
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('nda_unlocked');
+            logoutBtn.innerHTML = 'Locking Session...';
+            logoutBtn.classList.add('opacity-50', 'pointer-events-none');
+            setTimeout(() => {
+                window.location.reload();
+            }, 800);
+        });
+    </script>
+</body>
+</html>

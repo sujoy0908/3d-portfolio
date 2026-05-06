@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Stylized Game Prop",
+        "description": "A highly optimized stylized treasure chest created with a PBR workflow for mobile platforms. Features hand-painted textures and efficient geometry.",
+        "polycount": "2.4k Tris / 1.2k Quads",
+        "textures": "1x 2K (PBR)",
+        "software": ["Maya", "ZBrush", "Substance"],
+        "engine": "Unity",
+        "modelSrc": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+        "poster": "https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1200&h=675&auto=format&fit=crop",
+        "sliderBefore": "https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1200&h=675&auto=format&fit=crop",
+        "sliderAfter": "https://images.unsplash.com/photo-1635339001026-6114ad42aef7?q=80&w=1200&h=675&auto=format&fit=crop"
+    },
+    {
+        "title": "Photorealistic Environment",
+        "description": "A detailed sci-fi corridor utilizing modular level design, trim sheets, and custom shader creation for real-time lighting.",
+        "polycount": "45k Tris / 22k Quads",
+        "textures": "4x 4K (PBR + Decals)",
+        "software": ["Maya", "Substance", "Unreal"],
+        "engine": "Unreal Engine 5",
+        "modelSrc": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+        "poster": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&h=675&auto=format&fit=crop",
+        "sliderBefore": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&h=675&auto=format&fit=crop",
+        "sliderAfter": "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1200&h=675&auto=format&fit=crop"
+    },
+    {
+        "title": "Character Sculpt",
+        "description": "High-fidelity organic character sculpt focusing on anatomical accuracy and dynamic posing, baked down to a game-ready mesh.",
+        "polycount": "32k Tris / 16k Quads",
+        "textures": "2x 4K (Skin & Clothing)",
+        "software": ["ZBrush", "Maya", "Substance", "Unreal"],
+        "engine": "Unreal Engine 5",
+        "modelSrc": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+        "poster": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&h=675&auto=format&fit=crop",
+        "sliderBefore": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&h=675&auto=format&fit=crop",
+        "sliderAfter": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&h=675&auto=format&fit=crop"
+    }
+]

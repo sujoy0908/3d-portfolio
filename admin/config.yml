@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "content"
+    label: "Site Content"
+    files:
+      - name: "portfolio"
+        label: "Portfolio Collection"
+        file: "data/portfolio.json"
+        fields:
+          - name: "projects"
+            label: "Projects"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Category", name: "category", widget: "string", required: false }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Model URL", name: "modelUrl", widget: "file", hint: "IMPORTANT: Only upload .glb files for the 3D viewer." }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Poly Count", name: "polyCount", widget: "string" }
+              - { label: "Textures", name: "textures", widget: "string" }
+              - { label: "Render Time", name: "renderTime", widget: "string", required: false }
+              - { label: "Software", name: "software", widget: "select", multiple: true, options: ["maya", "zbrush", "substance", "unreal", "blender", "marmoset", "photoshop"] }
+
+      - name: "nda_gallery"
+        label: "NDA Gallery Collection"
+        file: "data/private.json"
+        fields:
+          - name: "projects"
+            label: "Projects"
+            widget: "list"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Link", name: "link", widget: "string" }
+
+  - name: "settings"
+    label: "Settings Collection"
+    files:
+      - name: "general_settings"
+        label: "General Settings"
+        file: "data/settings.json"
+        fields:
+          - { label: "NDA Access Password", name: "nda_password", widget: "string" }
