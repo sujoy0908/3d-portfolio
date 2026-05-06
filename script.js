@@ -231,12 +231,16 @@ if (contactForm) {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 10000);
             
+            const formData = new FormData(this);
+            const dataObj = Object.fromEntries(formData.entries());
+
             const response = await fetch(this.action, {
                 method: 'POST',
-                body: new FormData(this),
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
+                body: JSON.stringify(dataObj),
                 signal: controller.signal
             });
             
