@@ -29,7 +29,9 @@ collections:
               - { label: "Textures", name: "textures", widget: "string" }
               - { label: "Render Time", name: "renderTime", widget: "string", required: false }
               - { label: "Software", name: "software", widget: "select", multiple: true, options: ["maya", "zbrush", "substance", "unreal", "blender", "marmoset", "photoshop"] }
-
+              - { label: "Engine", name: "engine", widget: "string" }
+              - { label: "Slider Before (Final Render)", name: "sliderBefore", widget: "image" }
+              - { label: "Slider After (Wireframe/Mesh)", name: "sliderAfter", widget: "image" }
       - name: "nda_gallery"
         label: "NDA Gallery Collection"
         file: "data/private.json"

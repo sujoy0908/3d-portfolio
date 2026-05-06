@@ -129,7 +129,7 @@ function attachPortfolioListeners() {
 
                 document.getElementById('detail-title').innerText = data.title;
                 document.getElementById('detail-desc').innerText = data.description;
-                document.getElementById('detail-poly').innerText = data.polycount;
+                document.getElementById('detail-poly').innerText = data.polyCount;
                 document.getElementById('detail-textures').innerText = data.textures;
                 
                 const engineContainer = document.getElementById('detail-engine');
@@ -141,9 +141,9 @@ function attachPortfolioListeners() {
                 `;
 
                 const modelViewer = document.getElementById('portfolio-model-viewer');
-                modelViewer.src = data.modelSrc;
-                if (data.poster) {
-                    modelViewer.poster = data.poster;
+                modelViewer.src = data.modelUrl;
+                if (data.image) {
+                    modelViewer.poster = data.image;
                 }
 
                 const sliderFinal = document.getElementById('slider-final');
