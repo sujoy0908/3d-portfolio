@@ -1,16 +1,16 @@
 {
   "projects": [
     {
-      "title": "Stylized Game Prop",
-      "description": "A highly optimized stylized treasure chest created with a PBR workflow for mobile platforms. Features hand-painted textures and efficient geometry.",
-      "polyCount": "2.4k Tris / 1.2k Quads",
+      "title": "Stylized Sci-Fi Rocket",
+      "description": "A highly optimized stylized sci-fi rocket created with a PBR workflow for mobile platforms. Features hand-painted textures and efficient geometry.",
+      "polyCount": "12.4k Tris / 6.2k Quads",
       "textures": "1x 2K (PBR)",
       "software": ["Maya", "ZBrush", "Substance"],
       "engine": "Unity",
       "modelUrl": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
       "image": "https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1200&h=675&auto=format&fit=crop",
       "sliderBefore": "https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=1200&h=675&auto=format&fit=crop",
-      "sliderAfter": "https://images.unsplash.com/photo-1635339001026-6114ad42aef7?q=80&w=1200&h=675&auto=format&fit=crop"
+      "sliderAfter": "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=1200&h=675&auto=format&fit=crop"
     },
     {
       "title": "Photorealistic Environment",
